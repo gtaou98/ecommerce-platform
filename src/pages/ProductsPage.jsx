@@ -1,32 +1,41 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Product from '../components/Product';
-
-// Sample product data (same as before)
-const products = [
-  {
-    id: 1,
-    name: 'Stylish Backpack',
-    description: 'A durable and stylish backpack for all your needs.',
-    price: 49.99,
-    image: 'https://via.placeholder.com/300x300.png?text=Backpack',
-  },
-  {
-    id: 2,
-    name: 'Wireless Headphones',
-    description: 'High-quality sound and long battery life.',
-    price: 89.99,
-    image: 'https://via.placeholder.com/300x300.png?text=Headphones',
-  },
-  {
-    id: 3,
-    name: 'Smart Watch',
-    description: 'Stay connected and track your fitness goals.',
-    price: 199.99,
-    image: 'https://via.placeholder.com/300x300.png?text=Smart+Watch',
-  },
-];
+import './ProductsPage.css';
 
 function ProductsPage() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        // Construct the correct path using import.meta.env.BASE_URL
+        const response = await fetch(`${import.meta.env.BASE_URL}products.json`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        setProducts(data);
+      } catch (e) {
+        setError('Failed to fetch products. Please try again later.');
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  if (loading) {
+    return <div>Loading products...</div>;
+  }
+
+  if (error) {
+    return <div className="error-message">{error}</div>;
+  }
+
   return (
     <div>
       <h1>Our Products</h1>

@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Classic Black T-Shirt",
+    "price": 29.99,
+    "image": "/product-images/black-t-shirt.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Comfort Fit Jeans",
+    "price": 89.99,
+    "image": "/product-images/comfort-jeans.jpg"
+  },
+  {
+    "id": 3,
+    "name": "White Casual Sneakers",
+    "price": 120.00,
+    "image": "/product-images/white-sneakers.jpg"
+  },
+  {
+    "id": 4,
+    "name": "Leather Biker Jacket",
+    "price": 250.50,
+    "image": "/product-images/leather-jacket.jpg"
+  },
+  {
+    "id": 5,
+    "name": "Stylish Sunglasses",
+    "price": 45.00,
+    "image": "/product-images/sunglasses.jpg"
+  },
+  {
+    "id": 6,
+    "name": "Modern Wristwatch",
+    "price": 300.00,
+    "image": "/product-images/wristwatch.jpg"
+  }
+]

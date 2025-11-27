@@ -25,9 +25,14 @@ export function CartProvider({ children }) {
     console.log(`${product.name} added to cart!`);
   };
 
+  const clearCart = () => {
+    setCartItems([]);
+  };
+
   const value = {
     cartItems,
     addToCart,
+    clearCart, // Expose the new function
   };
 
   return (

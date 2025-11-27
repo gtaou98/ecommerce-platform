@@ -1,8 +1,10 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
-import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
-import CartPage from './pages/CartPage'; // Import CartPage
+import ProductDetailPage from './pages/ProductDetailPage'; // Import the new component
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
+import Header from './components/Header';
 import './App.css';
 
 function Layout() {
@@ -10,7 +12,7 @@ function Layout() {
     <div className="App">
       <Header />
       <main className="main-content">
-        <Outlet /> {/* This is where the page content will be rendered */}
+        <Outlet />
       </main>
     </div>
   );
@@ -22,7 +24,9 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
         <Route path="products" element={<ProductsPage />} />
-        <Route path="cart" element={<CartPage />} /> {/* Add route for CartPage */}
+        <Route path="products/:id" element={<ProductDetailPage />} /> {/* Add this route */}
+        <Route path="cart" element={<CartPage />} />
+        <Route path="checkout" element={<CheckoutPage />} />
       </Route>
     </Routes>
   );

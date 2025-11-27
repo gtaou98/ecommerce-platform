@@ -1,0 +1,13 @@
+.product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.error-message {
+  color: #cc0000;
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.2rem;
+}

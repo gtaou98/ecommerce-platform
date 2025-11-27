@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import './CartPage.css';
 
@@ -29,7 +30,7 @@ function CartPage() {
           ))}
           <div className="cart-summary">
             <h2>Total: ${total.toFixed(2)}</h2>
-            <button className="checkout-btn">Proceed to Checkout</button>
+            <Link to="/checkout" className="checkout-btn">Proceed to Checkout</Link>
           </div>
         </div>
       )}
