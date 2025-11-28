@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { AuthContext } from '../context/AuthContext';
 import './CheckoutPage.css';
 
 function CheckoutPage() {
-  const { clearCart } = useCart();
+  const { cartItems, clearCart } = useCart();
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   
   const [formData, setFormData] = useState({
@@ -20,23 +22,35 @@ function CheckoutPage() {
     cvv: '',
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
+   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically process the payment
     console.log('Order submitted:', formData);
-    alert('Thank you for your order! Your payment has been processed.');
+
+    const orderDetails = [...cartItems];
+    const orderTotal = orderDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
     
-    // Clear the cart and navigate to the homepage
+    if (currentUser) {
+      const orders = JSON.parse(localStorage.getItem('orders')) || {};
+      const userOrders = orders[currentUser.email] || [];
+      const newOrder = {
+        id: new Date().getTime(),
+        date: new Date().toLocaleDateString(),
+        items: orderDetails,
+        total: orderTotal,
+      };
+      userOrders.push(newOrder);
+      orders[currentUser.email] = userOrders;
+      localStorage.setItem('orders', JSON.stringify(orders));
+    }
+    
     clearCart();
-    navigate('/');
+    
+    navigate('/order-confirmation', {
+      state: { 
+        orderDetails,
+        orderTotal 
+      } 
+    });
   };
 
   return (

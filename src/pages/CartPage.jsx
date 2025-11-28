@@ -4,7 +4,7 @@ import { useCart } from '../context/CartContext';
 import './CartPage.css';
 
 function CartPage() {
-  const { cartItems } = useCart();
+  const { cartItems, updateQuantity, removeFromCart } = useCart();
 
   const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -20,11 +20,18 @@ function CartPage() {
               <img src={item.image} alt={item.name} className="cart-item-image" />
               <div className="cart-item-info">
                 <h2>{item.name}</h2>
-                <p>Quantity: {item.quantity}</p>
                 <p>Price: ${item.price.toFixed(2)}</p>
+                <div className="quantity-controls">
+                  <button onClick={() => updateQuantity(item.id, -1)}>-</button>
+                  <span>{item.quantity}</span>
+                  <button onClick={() => updateQuantity(item.id, 1)}>+</button>
+                </div>
               </div>
-              <div className="cart-item-total">
-                ${(item.price * item.quantity).toFixed(2)}
+              <div className="cart-item-actions">
+                <p className="cart-item-total">
+                  ${(item.price * item.quantity).toFixed(2)}
+                </p>
+                <button onClick={() => removeFromCart(item.id)} className="remove-btn">Remove</button>
               </div>
             </div>
           ))}
